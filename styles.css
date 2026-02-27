@@ -1,0 +1,194 @@
+:root {
+  --bg: #ffffff;
+  --text: #0b1220;
+  --muted: rgba(11, 18, 32, 0.68);
+  --border: rgba(11, 18, 32, 0.12);
+  --soft: rgba(11, 18, 32, 0.045);
+  --shadow: rgba(11, 18, 32, 0.06);
+
+  --accent: #ff7a00;
+
+  --max: 780px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  line-height: 1.7;
+}
+
+::selection {
+  background: rgba(255, 122, 0, 0.22);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  background-image: linear-gradient(rgba(11, 18, 32, 0.38), rgba(11, 18, 32, 0.38));
+  background-size: 100% 1px;
+  background-position: 0 calc(100% - 0.08em);
+  background-repeat: no-repeat;
+}
+
+a:hover {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 100% 2px;
+}
+
+.page {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 72px 20px 72px;
+}
+
+.header {
+  margin-bottom: 26px;
+}
+
+.name {
+  font-size: clamp(2.2rem, 4.2vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+  display: inline-block;
+
+  --gshift: 0;
+}
+
+.tagline {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.about p {
+  margin: 0 0 14px;
+}
+
+.section {
+  margin-top: 34px;
+}
+
+.section-title {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+.web-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+  margin-top: 10px;
+}
+
+@media (max-width: 860px) {
+  .projects {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project {
+  margin: 0;
+}
+
+.project-media {
+  display: block;
+  background: #f5f6f8;
+  border: 1px solid rgba(11, 18, 32, 0.10);
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 1px 0 rgba(11, 18, 32, 0.04), 0 16px 36px var(--shadow);
+}
+
+.project-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.project-title {
+  margin: 12px 0 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.project-title a {
+  background-position: 0 calc(100% - 0.10em);
+}
+
+.project-desc {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.footer {
+  margin-top: 44px;
+  color: var(--muted);
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* Fish letters */
+.ch {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Name gradient (large, continuous) */
+.name .ch {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  /* One large gradient that reads across the whole name */
+  background-image: linear-gradient(
+    120deg,
+    #ff2e00 0%,
+    #ff6a00 28%,
+    #ffb347 58%,
+    #ff5a00 82%,
+    #ff2e00 100%
+  );
+
+  /* Big canvas, so you don't get tiny banding */
+  background-size: 1800px 700px;
+
+  /* Keep the gradient continuous across letters */
+  background-attachment: fixed;
+  background-position: calc(var(--gshift, 0) * 1px) 40%;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  /* Slight depth, still clean */
+  filter: drop-shadow(0 10px 24px rgba(11, 18, 32, 0.06));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ch {
+    will-change: auto;
+  }
+}
