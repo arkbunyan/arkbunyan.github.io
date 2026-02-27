@@ -1,3 +1,3 @@
-# [Visit Portfolio](https://arkbunyan.github.io)
+# [Visit Portfolio](arkbunyan.github.io)
 
-Simple minimalistic static website
+Simple minimalistic static site.

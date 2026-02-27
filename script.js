@@ -9,6 +9,101 @@
   const root = document.querySelector(".page");
   if (!root) return;
 
+  // Skills: icon shatter + smooth label reveal
+  const SCRAMBLE_GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  const activeScrambles = new WeakMap();
+
+  function scrambleTo(el, target, durationMs = 520) {
+    if (!el) return;
+    const prev = activeScrambles.get(el);
+    if (prev) prev.cancel();
+
+    const start = performance.now();
+    const len = target.length;
+    let raf = 0;
+
+    const state = {
+      cancel() {
+        if (raf) cancelAnimationFrame(raf);
+        raf = 0;
+      },
+    };
+    activeScrambles.set(el, state);
+
+    function step(now) {
+      const t = Math.min(1, (now - start) / Math.max(200, durationMs));
+      // Ease out for a clean finish.
+      const eased = 1 - Math.pow(1 - t, 3);
+      const reveal = Math.floor(eased * len);
+
+      let out = "";
+      for (let i = 0; i < len; i += 1) {
+        if (i < reveal) {
+          out += target[i];
+        } else {
+          const r = SCRAMBLE_GLYPHS[(Math.random() * SCRAMBLE_GLYPHS.length) | 0];
+          out += r;
+        }
+      }
+      el.textContent = out;
+
+      if (t < 1) {
+        raf = requestAnimationFrame(step);
+      } else {
+        el.textContent = target;
+      }
+    }
+
+    raf = requestAnimationFrame(step);
+  }
+
+  function initSkills() {
+    const skills = Array.from(root.querySelectorAll(".skill"));
+    if (!skills.length) return;
+
+    for (const skill of skills) {
+      const full = skill.getAttribute("data-full") || "";
+      const icon = skill.getAttribute("data-icon") || "";
+      const iconEl = skill.querySelector(".skill-icon");
+      const textEl = skill.querySelector(".skill-text");
+
+      if (iconEl && icon) {
+        iconEl.style.setProperty("--img", `url('${icon}')`);
+        if (!iconEl.querySelector(".shard")) {
+          for (let i = 0; i < 6; i += 1) {
+            const s = document.createElement("span");
+            s.className = "shard";
+            iconEl.appendChild(s);
+          }
+        }
+      }
+
+      if (textEl) textEl.textContent = "";
+
+      const open = () => {
+        skill.classList.add("is-open");
+        if (!reduceMotion) scrambleTo(textEl, full, 520);
+        else if (textEl) textEl.textContent = full;
+      };
+
+      const close = () => {
+        skill.classList.remove("is-open");
+        if (textEl) {
+          const prev = activeScrambles.get(textEl);
+          if (prev) prev.cancel();
+          textEl.textContent = "";
+        }
+      };
+
+      skill.addEventListener("mouseenter", open);
+      skill.addEventListener("focus", open);
+      skill.addEventListener("mouseleave", close);
+      skill.addEventListener("blur", close);
+    }
+  }
+
+  initSkills();
+
   const SKIP_SELECTOR = "script, style, textarea, input, code, pre";
 
   function shouldSkipTextNode(node) {
@@ -38,23 +133,33 @@
 
     const frag = document.createDocumentFragment();
 
-    for (let i = 0; i < text.length; i += 1) {
-      const ch = text[i];
+    // Tokenize by whitespace so we can prevent mid-word line breaks.
+    const parts = text.split(/(\s+)/);
 
-      if (ch === " " || ch === "\n" || ch === "\t") {
-        frag.appendChild(document.createTextNode(ch));
+    for (const part of parts) {
+      if (!part) continue;
+
+      // Preserve whitespace exactly as-is so wrapping behaves naturally.
+      if (/^\s+$/.test(part)) {
+        frag.appendChild(document.createTextNode(part));
         continue;
       }
 
-      const span = document.createElement("span");
-      span.className = "ch";
-      span.textContent = ch;
+      // Wrap each word/token to avoid letter-by-letter wrapping.
+      const word = document.createElement("span");
+      word.className = "w";
+      if (isSimple) word.setAttribute("aria-hidden", "true");
 
-      if (isSimple) {
-        span.setAttribute("aria-hidden", "true");
+      for (let i = 0; i < part.length; i += 1) {
+        const ch = part[i];
+        const span = document.createElement("span");
+        span.className = "ch";
+        span.textContent = ch;
+        if (isSimple) span.setAttribute("aria-hidden", "true");
+        word.appendChild(span);
       }
 
-      frag.appendChild(span);
+      frag.appendChild(word);
     }
 
     parent.replaceChild(frag, node);
@@ -86,10 +191,21 @@
   }));
 
   function measureAll() {
+    const nameRect = nameEl ? nameEl.getBoundingClientRect() : null;
     for (const it of items) {
       const r = it.el.getBoundingClientRect();
       it.x0 = r.left + window.scrollX + r.width / 2;
       it.y0 = r.top + window.scrollY + r.height / 2;
+    }
+
+    // Align the gradient across the whole name by offsetting each character.
+    if (nameEl && nameRect) {
+      const nameChars = Array.from(nameEl.querySelectorAll(".ch"));
+      for (const ch of nameChars) {
+        const r = ch.getBoundingClientRect();
+        const cx = r.left - nameRect.left;
+        ch.style.setProperty("--cx", cx.toFixed(2));
+      }
     }
   }
 
@@ -184,7 +300,7 @@
   function tick(now) {
     // Name gradient shift (px). Smooth.
     if (nameEl) {
-      const gshift = (now * 0.05) % 2000;
+      const gshift = (now * 0.14) % 980;
       nameEl.style.setProperty("--gshift", gshift.toFixed(2));
     }
 
