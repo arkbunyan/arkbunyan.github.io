@@ -1,3 +1,3 @@
-<a href="https://arkbunyan.github.io/" target="_blank" rel="noopener noreferrer">Visit Portfolio</a>
+# [Visit Portfolio](https://arkbunyan.github.io)
 
-Simple static site for GitHub Pages.
+Simple minimalistic static website
