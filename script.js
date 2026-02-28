@@ -60,6 +60,10 @@
     const skills = Array.from(root.querySelectorAll(".skill"));
     if (!skills.length) return;
 
+    // Proximity state for being able to open/close skills from the global tick
+    const SKILL_PROXIMITY = 64; // px radius for 'nearby' cursor
+    const skillStates = [];
+
     for (const skill of skills) {
       const full = skill.getAttribute("data-full") || "";
       const icon = skill.getAttribute("data-icon") || "";
@@ -80,12 +84,15 @@
       if (textEl) textEl.textContent = "";
 
       const open = () => {
+        // idempotent: don't re-trigger if already open
+        if (skill.classList.contains("is-open")) return;
         skill.classList.add("is-open");
         if (!reduceMotion) scrambleTo(textEl, full, 520);
         else if (textEl) textEl.textContent = full;
       };
 
       const close = () => {
+        if (!skill.classList.contains("is-open")) return;
         skill.classList.remove("is-open");
         if (textEl) {
           const prev = activeScrambles.get(textEl);
@@ -94,12 +101,45 @@
         }
       };
 
+      // keep mouse/focus handlers for direct interaction
       skill.addEventListener("mouseenter", open);
       skill.addEventListener("focus", open);
       skill.addEventListener("mouseleave", close);
       skill.addEventListener("blur", close);
+
+      // store state so the central tick loop can open/close based on proximity
+      skillStates.push({ skill, open, close, textEl, iconEl });
     }
   }
+
+  // After initSkills runs, reuse the stored skillStates by querying DOM and
+  // building a lightweight state array that tick() can reference. This
+  // approach ensures proximity logic runs even if initSkills closed over
+  // different variables.
+  let _skillStates = [];
+  (function buildSkillStates() {
+    const skills = Array.from(root.querySelectorAll('.skill'));
+    for (const skill of skills) {
+      const textEl = skill.querySelector('.skill-text');
+      const iconEl = skill.querySelector('.skill-icon');
+      const open = () => {
+        if (skill.classList.contains('is-open')) return;
+        skill.classList.add('is-open');
+        if (!reduceMotion && textEl) scrambleTo(textEl, skill.getAttribute('data-full') || '', 520);
+        else if (textEl) textEl.textContent = skill.getAttribute('data-full') || '';
+      };
+      const close = () => {
+        if (!skill.classList.contains('is-open')) return;
+        skill.classList.remove('is-open');
+        if (textEl) {
+          const prev = activeScrambles.get(textEl);
+          if (prev) prev.cancel();
+          textEl.textContent = '';
+        }
+      };
+      _skillStates.push({ skill, open, close, textEl, iconEl });
+    }
+  })();
 
   initSkills();
 
@@ -325,6 +365,25 @@
         gradientDir = 1;
       }
       nameEl.style.setProperty("--gshift", gradientPos.toFixed(2));
+    }
+
+    // Proximity-trigger skills: open when mouse is reasonably near
+    if (_skillStates && _skillStates.length) {
+      for (const s of _skillStates) {
+        const rect = s.skill.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2 + window.scrollX;
+        const cy = rect.top + rect.height / 2 + window.scrollY;
+        const dx = cx - mouse.x;
+        const dy = cy - mouse.y;
+        const d = Math.hypot(dx, dy);
+        const PROX = 32; // px (halved per request)
+        if (d < PROX) {
+          s.open();
+        } else {
+          // Respect keyboard focus: don't auto-close when focused
+          if (!s.skill.contains(document.activeElement)) s.close();
+        }
+      }
     }
 
     for (const it of items) {
