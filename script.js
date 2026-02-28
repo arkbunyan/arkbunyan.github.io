@@ -205,6 +205,13 @@
         const cx = r.left - nameRect.left;
         ch.style.setProperty("--cx", cx.toFixed(2));
       }
+
+      // determine how far we should scroll the background before reversing
+      // use the background-size x value if available, otherwise fall back
+      const style = window.getComputedStyle(nameEl);
+      const bg = style.backgroundSize.split(" ")[0];
+      const parsed = parseFloat(bg);
+      gradientMax = !isNaN(parsed) && parsed > 0 ? parsed : 1800;
     }
   }
 
@@ -261,6 +268,7 @@
         it.el.style.transform = "";
       }
       measureAll();
+      if (gradientPos > gradientMax) gradientPos = gradientMax;
     },
     { passive: true }
   );
@@ -292,15 +300,31 @@
   const MAX_OFFSET = 10;
   const EASE = 0.07;
 
+  // gradient animation state; width will be set in measureAll
+  let gradientMax = 0;
+  let gradientPos = 0;
+  let gradientDir = 1; // 1 = forward, -1 = backward
+  let lastTickTime = performance.now();
+
   function clamp(v, min, max) {
     return Math.max(min, Math.min(max, v));
   }
 
   function tick(now) {
-    // Name gradient shift (px)
-    if (nameEl) {
-      const gshift = (now * 0.14) % 980;
-      nameEl.style.setProperty("--gshift", gshift.toFixed(2));
+    // Name gradient shift (px) – animate back and forth instead of abruptly resetting
+    if (nameEl && gradientMax > 0) {
+      const dt = now - lastTickTime;
+      lastTickTime = now;
+      // original speed was 0.14px per ms (see previous implementation)
+      gradientPos += gradientDir * 0.14 * dt;
+      if (gradientPos > gradientMax) {
+        gradientPos = gradientMax;
+        gradientDir = -1;
+      } else if (gradientPos < 0) {
+        gradientPos = 0;
+        gradientDir = 1;
+      }
+      nameEl.style.setProperty("--gshift", gradientPos.toFixed(2));
     }
 
     for (const it of items) {

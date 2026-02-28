@@ -310,7 +310,8 @@ a:hover {
 
   /* Keep the gradient continuous across letters */
   background-attachment: fixed;
-  background-position: calc(var(--gshift, 0) * 1px) 40%;
+  /* shift the whole gradient and then offset per-character so letters line up */
+  background-position: calc(var(--gshift, 0) * 1px + var(--cx, 0) * 1px) 40%;
 
   -webkit-background-clip: text;
   background-clip: text;
