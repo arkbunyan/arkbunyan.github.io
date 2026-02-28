@@ -133,7 +133,7 @@ a:hover {
   flex: 0 0 auto;
 }
 
-/* Base icon layer (fills any clip-path seams at rest) */
+/* Base icon layer */
 .skill-icon::before {
   content: "";
   position: absolute;
@@ -162,7 +162,7 @@ a:hover {
     filter 520ms cubic-bezier(0.2, 0.8, 0.18, 1);
 }
 
-/* A clean geometric shatter using clip-path fragments */
+/* A clean geometric shatter */
 .skill-icon .shard:nth-child(1) { clip-path: polygon(0 0, 56% 0, 36% 42%, 0 30%); }
 .skill-icon .shard:nth-child(2) { clip-path: polygon(56% 0, 100% 0, 100% 44%, 66% 36%); }
 .skill-icon .shard:nth-child(3) { clip-path: polygon(0 30%, 36% 42%, 22% 72%, 0 72%); }
@@ -288,7 +288,7 @@ a:hover {
   will-change: transform;
 }
 
-/* Name gradient (large, continuous) */
+/* Name gradient */
 .name .ch {
   color: transparent;
   -webkit-text-fill-color: transparent;
@@ -303,7 +303,7 @@ a:hover {
     #ff2e00 100%
   );
 
-  /* Big canvas, so you don't get tiny banding */
+  /* Big canvas */
   background-size: 1800px 700px;
 
   background-repeat: repeat-x;
@@ -315,7 +315,6 @@ a:hover {
   -webkit-background-clip: text;
   background-clip: text;
 
-  /* Slight depth, still clean */
   filter: drop-shadow(0 10px 24px rgba(11, 18, 32, 0.06));
 }
 

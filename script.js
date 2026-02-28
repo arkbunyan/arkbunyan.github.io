@@ -32,7 +32,6 @@
 
     function step(now) {
       const t = Math.min(1, (now - start) / Math.max(200, durationMs));
-      // Ease out for a clean finish.
       const eased = 1 - Math.pow(1 - t, 3);
       const reveal = Math.floor(eased * len);
 
@@ -139,7 +138,7 @@
     for (const part of parts) {
       if (!part) continue;
 
-      // Preserve whitespace exactly as-is so wrapping behaves naturally.
+      // Preserve whitespace exactly so wrapping behaves naturally.
       if (/^\s+$/.test(part)) {
         frag.appendChild(document.createTextNode(part));
         continue;
@@ -179,7 +178,7 @@
   const letters = Array.from(root.querySelectorAll(".ch"));
   const nameEl = root.querySelector(".name");
 
-  // Fish movement state (in page coordinates)
+  // Fish movement state
   const items = letters.map((el) => ({
     el,
     x0: 0,
@@ -198,7 +197,7 @@
       it.y0 = r.top + window.scrollY + r.height / 2;
     }
 
-    // Align the gradient across the whole name by offsetting each character.
+    // Align the gradient across the whole name
     if (nameEl && nameRect) {
       const nameChars = Array.from(nameEl.querySelectorAll(".ch"));
       for (const ch of nameChars) {
@@ -287,7 +286,7 @@
     return;
   }
 
-  // Calm, smooth repulsion.
+  // Calm repulsion.
   const RADIUS = 92;
   const PUSH = 16;
   const MAX_OFFSET = 10;
@@ -298,7 +297,7 @@
   }
 
   function tick(now) {
-    // Name gradient shift (px). Smooth.
+    // Name gradient shift (px)
     if (nameEl) {
       const gshift = (now * 0.14) % 980;
       nameEl.style.setProperty("--gshift", gshift.toFixed(2));
