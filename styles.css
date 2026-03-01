@@ -14,7 +14,7 @@
 
 /* dark theme overrides */
 [data-theme="dark"] {
-  --bg: #0b1220;
+  --bg: #0a1410;
   --text: #ffffff;
   --muted: rgba(255, 255, 255, 0.75);
   --border: rgba(255, 255, 255, 0.2);
