@@ -241,10 +241,12 @@ a:hover {
 
 .project-media {
   display: block;
-  background: #f5f6f8;
+  /* keep a light frame so images don't vanish on white backgrounds */
+  background: #f5f6f8;           /* light grey backing */
   border: 1px solid rgba(11, 18, 32, 0.10);
+  padding: 6px;                  /* small inset padding to create the frame */
   border-radius: 14px;
-  padding: 12px;
+  overflow: hidden; /* clip the zoomed image */
   box-shadow: 0 1px 0 rgba(11, 18, 32, 0.04), 0 16px 36px var(--shadow);
 }
 
@@ -252,8 +254,16 @@ a:hover {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 10px;
+  border-radius: 10px; /* match earlier design: rounded corners on image */
+  transition: transform 220ms ease;
+  transform-origin: center center; /* zoom into the center */
 }
+
+.project-media:hover img {
+  transform: scale(1.2); /* stronger zoom effect */
+}
+
+/* no hover styles needed on container now */
 
 .project-title {
   margin: 12px 0 0;
