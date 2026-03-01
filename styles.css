@@ -11,6 +11,36 @@
   --max: 780px;
 }
 
+/* dark theme overrides */
+[data-theme="dark"] {
+  --bg: #0b1220;
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.75);
+  --border: rgba(255, 255, 255, 0.2);
+  --soft: rgba(255, 255, 255, 0.08);
+  --shadow: rgba(0, 0, 0, 0.4);
+
+  --accent: #ff7a00;
+}
+
+/* toggle button */
+.theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 6px;
+  line-height: 1;
+  border-radius: 6px;
+  transition: background 220ms ease, color 220ms ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  background: var(--soft);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -24,6 +54,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
+  transition: background 220ms ease, color 220ms ease;
   font-family: "Century Gothic", "Avenir Next", Avenir, "Futura", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -57,6 +88,12 @@ a:hover {
 
 .header {
   margin-bottom: 26px;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .name {

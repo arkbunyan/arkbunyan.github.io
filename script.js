@@ -1,4 +1,25 @@
 (() => {
+  /* theme toggle setup – respects system preference and localStorage */
+  const themeToggle = document.getElementById('theme-toggle');
+  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (themeToggle) themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+  let stored = null;
+  try { stored = localStorage.getItem('theme'); } catch {};
+  // always start light unless user has explicitly chosen otherwise
+  let theme = stored || 'light';
+  applyTheme(theme);
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem('theme', theme); } catch {}
+      applyTheme(theme);
+    });
+  }
+  // don't auto-switch based on system preference; user toggle takes precedence
+
   const reduceMotion =
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
