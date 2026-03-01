@@ -11,6 +11,7 @@
   // always start light unless user has explicitly chosen otherwise
   let theme = stored || 'light';
   applyTheme(theme);
+  window.addEventListener('DOMContentLoaded', () => applyTheme(theme));
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
       theme = theme === 'dark' ? 'light' : 'dark';

@@ -34,6 +34,8 @@
   line-height: 1;
   border-radius: 6px;
   transition: background 220ms ease, color 220ms ease;
+  /* ensure emoji characters render correctly */
+  font-family: system-ui, -apple-system, "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 .theme-toggle:hover,
@@ -278,29 +280,43 @@ a:hover {
 
 .project-media {
   display: block;
-  /* keep a light frame so images don't vanish on white backgrounds */
-  background: #f5f6f8;           /* light grey backing */
-  border: 1px solid rgba(11, 18, 32, 0.10);
-  padding: 6px;                  /* small inset padding to create the frame */
+  position: relative;
+  /* the border is drawn by a pseudo-element so it stays on top of the image */
+  background: transparent;
+  padding: 0;
   border-radius: 14px;
-  overflow: hidden; /* clip the zoomed image */
-  box-shadow: 0 1px 0 rgba(11, 18, 32, 0.04), 0 16px 36px var(--shadow);
+  overflow: visible; /* allow image to grow past frame on hover */
+  transition: transform 220ms ease;
+  transform-origin: center center;
+}
+
+.project-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(11, 18, 32, 0.10);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2; /* always above the zoomed image */
 }
 
 .project-media img {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 10px; /* match earlier design: rounded corners on image */
+  border-radius: 10px; /* keep image itself rounded */
   transition: transform 220ms ease;
   transform-origin: center center; /* zoom into the center */
 }
 
-.project-media:hover img {
-  transform: scale(1.2); /* stronger zoom effect */
+.project-media:hover {
+  transform: scale(1.1);
 }
 
-/* no hover styles needed on container now */
+.project-media:hover img {
+  /* no extra scaling; container scale alone controls zoom */
+  transform: scale(1);
+}
 
 .project-title {
   margin: 12px 0 0;
