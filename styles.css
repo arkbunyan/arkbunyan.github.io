@@ -389,7 +389,7 @@ a:hover {
   background-repeat: repeat-x;
 
   /* Keep the gradient continuous across letters */
-  background-attachment: fixed;
+  background-attachment: scroll;
   /* shift the whole gradient and then offset per-character so letters line up */
   background-position: calc(var(--gshift, 0) * 1px + var(--cx, 0) * 1px) 40%;
 
@@ -397,6 +397,15 @@ a:hover {
   background-clip: text;
 
   filter: drop-shadow(0 10px 24px rgba(11, 18, 32, 0.06));
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .name .ch {
+    color: var(--accent);
+    -webkit-text-fill-color: currentColor;
+    background-image: none;
+    filter: none;
+  }
 }
 
 .sr-only {
