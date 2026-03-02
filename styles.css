@@ -14,7 +14,7 @@
 
 /* dark theme overrides */
 [data-theme="dark"] {
-  --bg: #0a1410;
+  --bg: #000000;
   --text: #ffffff;
   --muted: rgba(255, 255, 255, 0.75);
   --border: rgba(255, 255, 255, 0.2);
@@ -280,6 +280,12 @@ a:hover {
 [data-theme="dark"] .skill:focus-visible [data-icon*="flask"] .skill-icon .shard,
 [data-theme="dark"] .skill.is-open [data-icon*="flask"] .skill-icon .shard {
   filter: invert(1) brightness(1.1) blur(0.6px);
+}
+
+/* Use dark-mode AWS icon variant */
+[data-theme="dark"] [data-icon$="aws.png"] .skill-icon::before,
+[data-theme="dark"] [data-icon$="aws.png"] .skill-icon .shard {
+  background-image: url('assets/skills/awsDarkMode.png');
 }
 
 @media (max-width: 860px) {
