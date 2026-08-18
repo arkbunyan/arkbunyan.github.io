@@ -5,130 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Ark Bunyan</title>
 
-    <meta name="description" content="Ark Bunyan — projects and links." />
-
+    <meta name="description" content="Ark Bunyan — computer science at Princeton. Undergraduate researcher at the Vision & Learning Lab." />
     <meta property="og:title" content="Ark Bunyan" />
-    <meta property="og:description" content="Ark Bunyan — projects and links." />
+    <meta property="og:description" content="Computer science at Princeton. Undergraduate researcher at the Vision & Learning Lab." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://arkbunyan.github.io/" />
 
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png" />
+    <link rel="preload" href="/assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin />
 
-    <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("mode");
+          var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.setAttribute("data-mode", dark ? "dark" : "light");
+        } catch (e) {}
+      })();
+    </script>
   </head>
-
   <body>
-    <main class="page">
-      <header class="header">
-        <h1 class="name" data-split="chars">Ark Bunyan</h1>
-        <div class="header-controls">
-          <p class="tagline">Computer Science @ Princeton</p>
-          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
-        </div>
-      </header>
-
-      <section class="about" aria-label="About">
-        <p>
-          I am currently working on camera simulation and Infinigen generated data to evaluate image sensors and vision models at the
-          <a href="https://pvl.cs.princeton.edu/" target="_blank" rel="noreferrer">Vision &amp; Learning Lab</a>
-          . I have experience in full stack development, machine learning, robotics, and cloud infrastructure.
-        </p>
-      </section>
-
-      <section class="section" aria-label="On the web">
-        <h2 class="section-title">On the web</h2>
-        <nav class="web-links">
-          <a href="https://github.com/arkbunyan" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/arkbunyan" target="_blank" rel="noreferrer">LinkedIn</a>
-        </nav>
-      </section>
-
-      <section class="section" aria-label="Skills">
-        <h2 class="section-title">Skills</h2>
-        <div class="skills" role="list">
-          <div class="skill" role="listitem" tabindex="0" data-full="Python" data-icon="assets/skills/python.png">
-            <span class="skill-icon" aria-hidden="true"></span>
-            <span class="skill-text" aria-hidden="true"></span>
-            <span class="sr-only">Python</span>
-          </div>
-          <div class="skill" role="listitem" tabindex="0" data-full="C++" data-icon="assets/skills/cpp.png">
-            <span class="skill-icon" aria-hidden="true"></span>
-            <span class="skill-text" aria-hidden="true"></span>
-            <span class="sr-only">C++</span>
-          </div>
-          <div class="skill" role="listitem" tabindex="0" data-full="C" data-icon="assets/skills/c.png">
-            <span class="skill-icon" aria-hidden="true"></span>
-            <span class="skill-text" aria-hidden="true"></span>
-            <span class="sr-only">C</span>
-          </div>
-          <div class="skill" role="listitem" tabindex="0" data-full="Java" data-icon="assets/skills/java.png">
-            <span class="skill-icon" aria-hidden="true"></span>
-            <span class="skill-text" aria-hidden="true"></span>
-            <span class="sr-only">Java</span>
-          </div>
-          <div class="skill" role="listitem" tabindex="0" data-full="Go" data-icon="assets/skills/go.png">
-            <span class="skill-icon" aria-hidden="true"></span>
-            <span class="skill-text" aria-hidden="true"></span>
-            <span class="sr-only">Go</span>
-          </div>
-          <div class="skill" role="listitem" tabindex="0" data-full="Node.js" data-icon="assets/skills/node.png">
-            <span class="skill-icon" aria-hidden="true"></span>
-            <span class="skill-text" aria-hidden="true"></span>
-            <span class="sr-only">Node.js</span>
-          </div>
-          <div class="skill" role="listitem" tabindex="0" data-full="React" data-icon="assets/skills/react.png">
-            <span class="skill-icon" aria-hidden="true"></span>
-            <span class="skill-text" aria-hidden="true"></span>
-            <span class="sr-only">React</span>
-          </div>
-          <div class="skill" role="listitem" tabindex="0" data-full="Flask" data-icon="assets/skills/flask.png">
-            <span class="skill-icon" aria-hidden="true"></span>
-            <span class="skill-text" aria-hidden="true"></span>
-            <span class="sr-only">Flask</span>
-          </div>
-          <div class="skill" role="listitem" tabindex="0" data-full="PostgreSQL" data-icon="assets/skills/postgres.png">
-            <span class="skill-icon" aria-hidden="true"></span>
-            <span class="skill-text" aria-hidden="true"></span>
-            <span class="sr-only">PostgreSQL</span>
-          </div>
-          <div class="skill" role="listitem" tabindex="0" data-full="AWS" data-icon="assets/skills/aws.png">
-            <span class="skill-icon" aria-hidden="true"></span>
-            <span class="skill-text" aria-hidden="true"></span>
-            <span class="sr-only">Amazon Web Services</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="projects" aria-label="Projects">
-        <h2 class="section-title">Projects</h2>
-
-        <div class="projects">
-          <article class="project">
-            <a class="project-media" href="https://github.com/arkbunyan/TigerBites" target="_blank" rel="noreferrer">
-              <img src="assets/tigerbites.png" alt="TigerBites screenshot" width="2048" height="1185" />
-            </a>
-            <h3 class="project-title">
-              <a href="https://github.com/arkbunyan/TigerBites" target="_blank" rel="noreferrer">TigerBites</a>
-            </h3>
-            <p class="project-desc">Restaurant discovery for Princeton with CAS login, map view, and group preference matching</p>
-          </article>
-
-          <article class="project">
-            <a class="project-media" href="https://arkinsauce.com/" target="_blank" rel="noreferrer">
-              <img src="assets/arkinsauce.png" alt="Arkinsauce screenshot" width="2048" height="1118" />
-            </a>
-            <h3 class="project-title">
-              <a href="https://arkinsauce.com/" target="_blank" rel="noreferrer">Fourdle</a>
-            </h3>
-            <p class="project-desc">A fast word game site built for quick rounds and streaks</p>
-          </article>
-        </div>
-      </section>
-
-      <footer class="footer" aria-label="Footer">
-        <p>@ 2026 Ark Bunyan</p>
-      </footer>
-    </main>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
