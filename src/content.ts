@@ -14,11 +14,10 @@ export const profile = {
     { text: "Princeton Vision & Learning Lab", href: "https://pvl.cs.princeton.edu/" },
     {
       text:
-        ", building synthetic data and rendering pipelines for camera simulation. " +
-        "Before that, scientific computing at ",
+        ", working on synthetic data and rendering for camera simulation. Previously, I worked on large-scale forecast prediction at ",
     },
     { text: "CMCC", href: "https://www.cmcc.it/" },
-    { text: " and software engineering at Bioness Medical." },
+    { text: " and production software at Bioness Medical." },
   ] as Segment[],
 };
 
