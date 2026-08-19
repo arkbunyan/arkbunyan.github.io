@@ -15,8 +15,10 @@ export const profile = {
     {
       text:
         ", building synthetic data and rendering pipelines for camera simulation. " +
-        "Before that, scientific computing at CMCC and software engineering at Bioness Medical.",
+        "Before that, scientific computing at ",
     },
+    { text: "CMCC", href: "https://www.cmcc.it/" },
+    { text: " and software engineering at Bioness Medical." },
   ] as Segment[],
 };
 
