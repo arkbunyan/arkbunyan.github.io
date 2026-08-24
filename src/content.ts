@@ -23,7 +23,7 @@ export const profile = {
 
 export const experience: Role[] = [
   { org: "Princeton Vision & Learning Lab", role: "Undergraduate Researcher" },
-  { org: "CMCC", role: "Scientific Computing Intern, Bologna" },
+  { org: "CMCC Foundation", role: "Scientific Computing Intern" },
   { org: "Bioness Medical", role: "Software Engineer Intern" },
 ];
 
