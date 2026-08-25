@@ -14,7 +14,7 @@ export const profile = {
     { text: "Princeton Vision & Learning Lab", href: "https://pvl.cs.princeton.edu/" },
     {
       text:
-        ", working on synthetic data and rendering for camera simulation. Previously, I worked on large-scale forecast prediction at ",
+        ", working on synthetic data and rendering for camera simulation. Previously, I worked on large-scale ensemble forecasting at ",
     },
     { text: "CMCC", href: "https://www.cmcc.it/" },
     { text: " and production software at Bioness Medical." },
@@ -28,7 +28,7 @@ export const experience: Role[] = [
 ];
 
 export const stack =
-  "C++, Python, Java, Go, C, JavaScript, SQL, Bash. PyTorch, NumPy, Pandas, React, Flask, Node.js. Git, Linux, PostgreSQL, Slurm/HPC.";
+  "> C++, Python, Java, Go, C, JavaScript, SQL, PyTorch, React, Flask, PostgreSQL, Linux, Slurm/HPC.";
 
 export const elsewhere: Segment[] = [
   { text: "GitHub", href: "https://github.com/arkbunyan" },
