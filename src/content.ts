@@ -28,7 +28,7 @@ export const experience: Role[] = [
 ];
 
 export const stack =
-  "C++, Python, Java, Go, C, JavaScript, SQL, PyTorch, React, Flask, PostgreSQL, Linux, Slurm/HPC.";
+  "C++, Python, Java, Go, PyTorch, React, Flask, PostgreSQL, Slurm";
 
 export const elsewhere: Segment[] = [
   { text: "GitHub", href: "https://github.com/arkbunyan" },
