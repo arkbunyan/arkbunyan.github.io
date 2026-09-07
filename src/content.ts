@@ -14,10 +14,10 @@ export const profile = {
     { text: "Princeton Vision & Learning Lab", href: "https://pvl.cs.princeton.edu/" },
     {
       text:
-        ", working on synthetic data and rendering for camera simulation. Previously, I worked on large-scale ensemble forecasting at ",
+        ", working on rendering for camera simulation, and a teaching assistant for COS 226 (Data Structures and Algorithms) and COS 217 (Programming Systems). This past summer, I interned at ",
     },
     { text: "CMCC", href: "https://www.cmcc.it/" },
-    { text: " and production software at Bioness." },
+    { text: ", working on large-scale ensemble forecasting." },
   ] as Segment[],
 };
 
