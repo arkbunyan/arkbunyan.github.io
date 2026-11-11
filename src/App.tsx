@@ -3,7 +3,6 @@ import { useRef } from "react";
 import ExperienceList from "./components/ExperienceList";
 import ProjectList from "./components/ProjectList";
 import Prose from "./components/Prose";
-import SharkCursor from "./components/SharkCursor";
 import Section from "./components/Section";
 import SplitText from "./components/SplitText";
 import ThemeToggle from "./components/ThemeToggle";
@@ -20,7 +19,6 @@ export default function App() {
 
   return (
     <>
-      <SharkCursor />
       <ThemeToggle mode={mode} onToggle={toggle} />
 
       <main className="page" ref={pageRef}>

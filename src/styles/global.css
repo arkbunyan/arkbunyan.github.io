@@ -197,39 +197,6 @@ footer {
   .name .ch { will-change: auto; }
 }
 
-@media (hover: hover) and (pointer: fine) {
-  html.has-shark-cursor,
-  html.has-shark-cursor * {
-    cursor: none !important;
-  }
-}
-
-.shark-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  pointer-events: none;
-  transform-origin: 0 0;
-  will-change: transform, opacity;
-  transition: opacity 100ms ease;
-}
-
-.shark-cursor img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 1.5rem;
-  max-width: none;
-  height: auto;
-  transform: translate(-50%, -50%);
-  transform-origin: 50% 50%;
-}
-
 @media print {
   .mode { display: none; }
   .page { width: auto; padding: 0; }
