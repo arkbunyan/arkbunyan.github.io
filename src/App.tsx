@@ -1,11 +1,13 @@
 import { useRef } from "react";
 
 import ExperienceList from "./components/ExperienceList";
+import ProjectList from "./components/ProjectList";
 import Prose from "./components/Prose";
+import SharkCursor from "./components/SharkCursor";
 import Section from "./components/Section";
 import SplitText from "./components/SplitText";
 import ThemeToggle from "./components/ThemeToggle";
-import { elsewhere, experience, profile, stack } from "./content";
+import { elsewhere, experience, profile, projects, stack } from "./content";
 import useLetterRepel from "./hooks/useLetterRepel";
 import useTheme from "./hooks/useTheme";
 
@@ -18,6 +20,7 @@ export default function App() {
 
   return (
     <>
+      <SharkCursor />
       <ThemeToggle mode={mode} onToggle={toggle} />
 
       <main className="page" ref={pageRef}>
@@ -34,6 +37,10 @@ export default function App() {
 
         <Section title="Experience">
           <ExperienceList roles={experience} />
+        </Section>
+
+        <Section title="Projects">
+          <ProjectList projects={projects} />
         </Section>
 
         <Section title="Stack">
